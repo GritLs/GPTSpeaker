@@ -14,7 +14,7 @@ while returning None if the sensor reading fails. It is recommended to adjust th
 needed to obtain more accurate readings.
 """
 import Adafruit_DHT
-
+import time
 
 class TemperatureHumiditySensor:
     def __init__(self, sensor_type, pin):
@@ -36,3 +36,13 @@ class TemperatureHumiditySensor:
             return (average_temperature, average_humidity)
         else:
             return None
+
+
+if __name__ == '__main__':
+    try:
+        sensor = TemperatureHumiditySensor(Adafruit_DHT.DHT11, 4)
+        while True:
+            print(sensor.read_temperature_and_humidity())
+            time.sleep(5)
+    finally:
+        GPIO.cleanup()
