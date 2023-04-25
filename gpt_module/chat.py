@@ -58,11 +58,7 @@ tools = [
     #     func=temperatureHumidity(),
     #     description="如果你要知道房间内的温度和湿度请使用这个工具"
     # ),
-    Tool(
-        name="RainSensor",
-        func=rainSensor.run,
-        description="如果你被要求用雨滴传感器检测是否下雨请使用该工具"
-    )
+    RainSensor()
 ]
 
 
