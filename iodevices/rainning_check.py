@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 class RainSensor:
     """
@@ -35,3 +36,12 @@ class RainSensor:
             return True
         else:
             return False
+
+if __name__ == '__main__':
+    try:
+        sensor = RainSensor(13)
+        while True:
+            print(sensor.is_raining())
+            time.sleep(5)
+    finally:
+        GPIO.cleanup()

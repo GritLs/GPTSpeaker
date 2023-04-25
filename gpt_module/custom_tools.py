@@ -1,5 +1,5 @@
 """This file is our own customised toolset for the Agent"""
-
+import Adafruit_DHT
 from langchain.tools import BaseTool
 from iodevices.TemperatureHumiditySensor import TemperatureHumiditySensor
 from iodevices.rainning_check import RainSensor
@@ -9,13 +9,11 @@ class IndoorTemperatureHumidity(BaseTool):
     description = "Use it when you need to know the temperature and humidity in the room"
     def _run(self,query: str) -> str:
         """return Temperature and Humidity"""
-        
-        # TODO No parameters for the pins have been passed in yet, this part is not complete
-        # temperatureHumiditySensor = TemperatureHumiditySensor()
-        # temperature,humidity = temperatureHumiditySensor.read_temperature_and_humidity()
+        temperatureHumiditySensor = TemperatureHumiditySensor(Adafruit_DHT.DHT11, 4)
+        temperature,humidity = temperatureHumiditySensor.read_temperature_and_humidity()
         
         # Test case
-        temperature,humidity = 23,55
+        # temperature,humidity = 23,55
 
         #Check for correct return of temperature and humidity
         try:
@@ -43,9 +41,9 @@ class CheckRaining(BaseTool):
         """Return to Whether it's raining or not """
         
         # TODO No parameters for the pins have been passed in yet, this part is not complete
-        # rainSensor = RainSensor()
-        # isRaining = rainSensor.is_raining()
-        isRaining = True
+        rainSensor = RainSensor(13)
+        isRaining = rainSensor.is_raining()
+        # isRaining = True
         # Check for correct return of isRaining
         try:
             self.check_not_none(isRaining)

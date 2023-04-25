@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from langchain.agents import Tool
 from langchain.memory import ConversationBufferMemory
@@ -14,7 +15,7 @@ from langchain.utilities import (
     PythonREPL,
     WikipediaAPIWrapper
 )
-
+from custom_tools import TemperatureHumiditySensor, RainSensor
 api = ApiKeys()
 api.set_all_keys_as_env_vars()
 
@@ -23,6 +24,9 @@ weather = OpenWeatherMapAPIWrapper()
 wolframalpha = WolframAlphaAPIWrapper()
 pythonREPL = PythonREPL()
 wikipedia = WikipediaAPIWrapper()
+# temperatureHumidity = TemperatureHumiditySensor()
+rainSensor = RainSensor()
+
 tools = [
     Tool(
         name = "Search",
@@ -48,6 +52,16 @@ tools = [
         name="Wikipedia",
         func=wikipedia.run,
         description="这是维基百科的api，如果你觉得需要使用维基百科请使用这个工具。"
+    ),
+    # Tool(
+    #     name="RoomTempratureHumidity",
+    #     func=temperatureHumidity(),
+    #     description="如果你要知道房间内的温度和湿度请使用这个工具"
+    # ),
+    Tool(
+        name="RainSensor",
+        func=rainSensor.run,
+        description="如果你被要求用雨滴传感器检测是否下雨请使用该工具"
     )
 ]
 
