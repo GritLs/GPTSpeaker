@@ -53,8 +53,8 @@ if __name__ == '__main__':
         led = LED(11)
         while True:
             led.on()
-            time.sleep(3)
+            time.sleep(0.5)
             led.off()
-            time.sleep(3)
+            time.sleep(0.5)
     finally:
         led.cleanup()

@@ -2,7 +2,7 @@ import os
 import json
 
 class ApiKeys:
-    def __init__(self, file_path='./keys.json'):
+    def __init__(self, file_path='/home/pi/Desktop/GPTSpeaker/gpt_module/keys.json'):
         self.file_path = file_path
         self.keys = self.load_keys()
 

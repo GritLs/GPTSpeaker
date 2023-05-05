@@ -9,7 +9,6 @@ from playsound import playsound
 import pygame  # 导入pygame，playsound报错或运行不稳定时直接使用
 import pyttsx3
 import asyncio
-import pyttsx3
 from aip import AipSpeech
 from edge_tts import Communicate
 
@@ -24,6 +23,9 @@ class BaiduTTS:
         self.client = AipSpeech(self.APP_ID, self.API_KEY, self.SECRET_KEY)
 
     def text_to_speech_and_play(self, text=""):
+        print("-------------------------------")
+        print(text)
+        print("###############################")
         result = self.client.synthesis(text, 'zh', 1, {
             'spd': 5,  # 语速
             'vol': 5,  # 音量大小

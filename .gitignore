@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+/speeach_module/MySnowboy
 # C extensions
 *.so
 

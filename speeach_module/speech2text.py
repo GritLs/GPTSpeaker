@@ -29,6 +29,7 @@ class BaiduASR:
             # phrase_time_limit：用于指定允许单次语音输入的最长时间（秒），如果超过这个时间，函数将自动停止录制，并返回None.默认值为 None，表示允许单次语音输入的时间没有限制。
             audio = self.r.listen(source, timeout=15, phrase_time_limit=5)
 
+        # file_name = "/home/pi/Desktop/GPTSpeaker/speeach_module/speech.wav"
         file_name = "./speech.wav"
         with open(file_name, "wb") as f:
             f.write(audio.get_wav_data())
