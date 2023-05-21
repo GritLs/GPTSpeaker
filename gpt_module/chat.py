@@ -12,8 +12,10 @@ from langchain.utilities import (
     WikipediaAPIWrapper
 )
 from langchain.chat_models import PromptLayerChatOpenAI
-from .api_keys import ApiKeys
-# from api_keys import ApiKeys
+# from .api_keys import ApiKeys
+# from .custom_tools import IndoorTemperatureHumidity, CheckRaining,TurnOnLight
+from api_keys import ApiKeys
+from custom_tools import IndoorTemperatureHumidity, CheckRaining,TurnOnLight
 
 class LangChainAgent:
     def __init__(self):
@@ -42,16 +44,9 @@ class LangChainAgent:
                 func=self.wolframalpha.run,
                 description="当你需要解决一些数学问题时请使用该工具，同时你必须将问题转化为数学语言。",
             ),
-            Tool(
-                name="PythonREPL",
-                func=self.pythonREPL.run,
-                description="你可以编写Python代码并执行它。例如，如果你想知道系统时间，你可以将相关Python代码传递给它，以获得当前的系统时间。"
-            ),
-            Tool(
-                name="Wikipedia",
-                func=self.wikipedia.run,
-                description="这是维基百科的api，如果你觉得需要使用维基百科请使用这个工具。"
-            )
+            IndoorTemperatureHumidity(),
+            TurnOnLight()
+
         ]
 
         self.memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
@@ -61,7 +56,7 @@ class LangChainAgent:
             callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]),
             verbose=True,
             streaming=True,
-            temperature=0.7
+            temperature=0.9
         )
 
         self.agent_chain = initialize_agent(
@@ -77,5 +72,10 @@ class LangChainAgent:
 
 if __name__ == "__main__":
     openai_chat_module = LangChainAgent()
-    resp = openai_chat_module.response("今天天气怎么样？")
+    Question = "Question:打开室内的灯"
+    print(Question)
+    # resp = openai_chat_module.response("现在室内的温度湿度怎么样？")
+    resp = openai_chat_module.response("现在的英国首相是谁?")
+    # resp = openai_chat_module.response("打开室内的灯")
+    # resp = openai_chat_module.response("今天天气怎么样？")
     print(resp)

@@ -39,6 +39,28 @@ class RGBLED:
         GPIO.cleanup()  # 清理GPIO设置并释放资源
 
 
+    def run(query:str):
+        # 定义三个LED灯的引脚编号
+        red_pin = 18
+        green_pin = 23
+        blue_pin = 24
+
+        # 创建RGBLED对象
+        led = RGBLED(red_pin, green_pin, blue_pin)
+
+        # 循环改变LED灯的颜色
+        colors = ["FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF", "00FFFF"]
+        for color in colors:
+            print("Setting color: " + color)
+            led.set_color_hex(color)   # 设置LED灯的颜色
+            time.sleep(1)   # 延时1秒
+
+        # 清理GPIO设置并释放资源
+        led.cleanup()
+
+        return True
+
+
 if __name__ == '__main__':
     # 定义三个LED灯的引脚编号
     red_pin = 18
@@ -47,7 +69,7 @@ if __name__ == '__main__':
 
     # 创建RGBLED对象
     led = RGBLED(red_pin, green_pin, blue_pin)
-
+    # led.run()
     # 循环改变LED灯的颜色
     colors = ["FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF", "00FFFF"]
     for color in colors:

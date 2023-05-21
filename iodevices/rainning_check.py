@@ -20,7 +20,7 @@ class RainSensor:
             pin (int): The GPIO pin number used to connect the rain sensor.
         """
         self.pin = pin
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin, GPIO.IN)
 
     def is_raining(self):

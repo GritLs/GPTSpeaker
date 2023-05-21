@@ -15,7 +15,7 @@ needed to obtain more accurate readings.
 """
 import Adafruit_DHT
 import time
-
+import RPi.GPIO as GPIO
 class TemperatureHumiditySensor:
     def __init__(self, sensor_type, pin):
         self.sensor_type = sensor_type

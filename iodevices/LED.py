@@ -4,7 +4,7 @@ import time
 class LED:
     def __init__(self, pin):
         self.pin = pin
-        GPIO.setmode(GPIO.BOARD)  # 设置GPIO引脚编号模式为BOARD
+        GPIO.setmode(GPIO.BCM)  # 设置GPIO引脚编号模式为BCM
         GPIO.setup(self.pin, GPIO.OUT)  # 将引脚设置为输出模式
         self.pwm = GPIO.PWM(self.pin, 1000)  # 创建PWM实例，设置频率为1000Hz
         self.pwm.start(0)  # 启动PWM，初始占空比为0
@@ -46,6 +46,8 @@ class LED:
 
     def cleanup(self):
         GPIO.cleanup()  # 清理GPIO引脚的设置，释放资源
+        self.pwm.stop()
+        del self.pwm
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 # Import the RPi.GPIO module for controlling GPIO pins
+# invaild
 import RPi.GPIO as GPIO
 
 class Light:

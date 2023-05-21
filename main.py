@@ -13,30 +13,12 @@ Baidu_APP_ID = '32714532'  # 你的百度APP_ID
 Baidu_API_KEY = 'GgWZBkVHMtZb1dmpH3POKGB7'  # 你的百度API_KEY
 Baidu_SECRET_KEY = 'T2ewdGvihXBKEykoNuhpGhdufz3EOIqQ'  # 你的百度
 
-# led = LED(11)
-# def led_blink(stop_event):
-#     while not stop_event.is_set():
-#         # 灯闪烁的代码
-#         led.on()
-#         time.sleep(0.5)
-#         led.off()
-#         time.sleep(0.5)
-
-# def led_off():
-#     # 灯灭的代码
-#     led.off()
-
 
 
 def run(voiceWakeUp, asr, tts):
       # 需要始终保持对唤醒词的监听
     keyword_idx = voiceWakeUp.start()
     if keyword_idx:
-
-        # led_blink_thread = None
-        # stop_event = threading.Event()
-
-        
         voiceWakeUp.terminate()  # 需要对取消对麦克风的占用!
         openai_chat_module = LangChainAgent()
         # print("嗯,我在,请讲！")
@@ -44,16 +26,7 @@ def run(voiceWakeUp, asr, tts):
         while True:  # 进入一次对话session
             q = asr.speech_to_text()
             print(f'recognize_from_microphone, text={q}')
-            #从这里开始灯闪
-            # if led_blink_thread is None or not led_blink_thread.is_alive():
-            #     stop_event.clear()
-            #     led_blink_thread = threading.Thread(target=led_blink, args=(stop_event,), daemon=True)
-            #     led_blink_thread.start()
             res = openai_chat_module.response(q)
-            # stop_event.set()
-            # led_blink_thread.join()  # 等待led_blink线程完成
-            # led_off()
-            #在这里灯灭
             print(res)
             tts.text_to_speech_and_play('嗯' + res)
 
